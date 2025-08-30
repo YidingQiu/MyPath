@@ -74,8 +74,19 @@ export default function Home() {
               <h1 className="text-2xl font-bold">MyPath</h1>
             </div>
           </div>
-          <div className="text-sm opacity-90">
-            Your personalized service journey
+          <div className="flex items-center gap-4">
+            <div className="text-sm opacity-90">
+              Your personalized service journey
+            </div>
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => window.open('/dataset-discovery', '_blank')}
+              className="text-primary-foreground hover:bg-primary/80"
+            >
+              <Database className="w-4 h-4 mr-2" />
+              Dataset Discovery
+            </Button>
           </div>
         </div>
       </header>
