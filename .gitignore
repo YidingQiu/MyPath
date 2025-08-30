@@ -205,3 +205,6 @@ pids
 
 # Sentry
 .sentryclirc
+
+# Claude
+.claude
