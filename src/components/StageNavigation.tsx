@@ -111,6 +111,11 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
                   className={`w-16 h-16 rounded-full p-0 mb-2 ${
                     isActive ? '' : isPast ? 'bg-muted text-muted-foreground' : ''
                   }`}
+                  style={isActive ? {
+                    backgroundColor: '#33C4E8',
+                    borderColor: '#33C4E8',
+                    color: 'white'
+                  } : {}}
                 >
                   <IconComponent className="w-6 h-6" />
                 </Button>
@@ -143,6 +148,11 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
               variant={isActive ? "default" : "outline"}
               onClick={() => onStageChange(stage.id)}
               className="flex flex-col gap-2 h-auto p-3"
+              style={isActive ? {
+                backgroundColor: '#33C4E8',
+                borderColor: '#33C4E8',
+                color: 'white'
+              } : {}}
             >
               <IconComponent className="w-4 h-4" />
               <span className="text-xs">{stage.title}</span>
@@ -152,10 +162,10 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
       </div>
       </div>
 
-      {/* Risk Management Stream */}
-      <div className="mb-8">
-        <h3 className="text-lg font-semibold mb-4">Risk Management</h3>
-        <div className="flex flex-wrap gap-3">
+      {/* Risk Management Stream - Optional/Secondary */}
+      <div className="mb-6">
+        <h4 className="text-sm font-medium text-muted-foreground mb-3">Risk Management (Optional)</h4>
+        <div className="flex gap-2 flex-wrap">
           {riskManagementStages.map((stage) => {
             const IconComponent = stage.icon;
             const isActive = currentStage === stage.id;
@@ -163,18 +173,30 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
             return (
               <Button
                 key={stage.id}
-                variant={isActive ? "default" : "outline"}
+                variant={isActive ? "default" : "ghost"}
+                size="sm"
                 onClick={() => onStageChange(stage.id)}
-                className="flex items-center gap-3 h-auto p-4 flex-1 min-w-0"
+                className="flex items-center gap-2 h-auto p-2 text-xs"
+                style={isActive ? {
+                  backgroundColor: '#33C4E8',
+                  borderColor: '#33C4E8',
+                  color: 'white'
+                } : {}}
               >
-                <IconComponent className="w-5 h-5 flex-shrink-0" />
-                <div className="text-left min-w-0">
-                  <div className="font-medium">{stage.title}</div>
-                  <div className="text-xs text-muted-foreground">{stage.description}</div>
-                </div>
+                <IconComponent className="w-3 h-3" />
+                <span>{stage.title}</span>
               </Button>
             );
           })}
+          {/* No Risk Management Option */}
+          <Button
+            variant={!['mitigate', 'prevent'].includes(currentStage) ? "outline" : "ghost"}
+            size="sm"
+            onClick={() => onStageChange('new')}
+            className="flex items-center gap-2 h-auto p-2 text-xs text-muted-foreground"
+          >
+            <span>None</span>
+          </Button>
         </div>
       </div>
 
