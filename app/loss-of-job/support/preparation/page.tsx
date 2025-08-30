@@ -1,24 +1,22 @@
 'use client'
 
-import React from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../../src/components/ui/card'
-import { Badge } from '../../../../src/components/ui/badge'
-import { Button } from '../../../../src/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { 
-  CheckCircle, 
+import {
+  AlertCircle,
   ArrowLeft,
-  Shield,
-  CreditCard,
+  ArrowRight,
   Bell,
+  Calendar,
+  CheckCircle,
   FileText,
   Key,
-  AlertCircle,
   Phone,
-  Calendar,
-  ArrowRight
+  Shield
 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { LogoImage } from '../../../../src/components/LogoImage'
+import { Badge } from '../../../../src/components/ui/badge'
+import { Button } from '../../../../src/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../../src/components/ui/card'
 
 export default function PreparationPage() {
   const router = useRouter()
@@ -57,7 +55,7 @@ export default function PreparationPage() {
       icon: FileText,
       status: "required",
       urgent: false,
-      details: "You'll need proof of identity, income history, and bank account details for your application."
+      details: "You&apos;ll need proof of identity, income history, and bank account details for your application."
     },
     {
       id: 4,
