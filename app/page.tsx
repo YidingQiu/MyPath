@@ -8,7 +8,20 @@ import { ServicesDisplay } from '../src/components/ServicesDisplay'
 import { Button } from '../src/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
 
-export type Persona = 'citizen' | 'newArrival' | 'student'
+export type Persona = 
+  | 'citizen' 
+  | 'newArrival' 
+  | 'student' 
+  | 'worker' 
+  | 'careerChanger' 
+  | 'parent' 
+  | 'carer' 
+  | 'personWithDisability' 
+  | 'senior' 
+  | 'smbOwner' 
+  | 'entrepreneur' 
+  | 'disasterAffected' 
+  | 'custom'
 export type Stage = 'new' | 'cruise' | 'choice' | 'crisis' | 'recovery' | 'closure'
 
 export default function Home() {

@@ -13,7 +13,15 @@ import {
   GraduationCap,
   Users,
   Phone,
-  ExternalLink
+  ExternalLink,
+  Car,
+  Vote,
+  AlertTriangle,
+  DollarSign,
+  FileCheck,
+  Monitor,
+  Database,
+  Clock
 } from 'lucide-react';
 import type { Persona, Stage } from '../../app/page';
 
@@ -23,157 +31,114 @@ interface ServicesDisplayProps {
 }
 
 export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
-  // Service data structure
+  // Service data structure with expanded domains
   const services = {
     'Identity & Status': {
       icon: CreditCard,
       color: 'bg-blue-500',
-      items: {
-        citizen: {
-          new: ['Driver License Application', 'Voter Registration', 'Medicare Card'],
-          cruise: ['License Renewal', 'Address Update', 'Passport Renewal'],
-          choice: ['Name Change Certificate', 'Citizenship Application'],
-          crisis: ['Emergency ID Replacement', 'Temporary Documents'],
-          recovery: ['ID Restoration Services', 'Document Recovery'],
-          closure: ['Account Closure', 'Final Documentation']
-        },
-        newArrival: {
-          new: ['TFN Application', 'Bank Account Setup', 'Centrelink Registration'],
-          cruise: ['Permanent Residence Application', 'Work Rights Verification'],
-          choice: ['Citizenship Pathway', 'Visa Extension Options'],
-          crisis: ['Immigration Legal Aid', 'Emergency Support'],
-          recovery: ['Status Restoration', 'Appeal Processes'],
-          closure: ['Departure Documentation', 'Exit Requirements']
-        },
-        student: {
-          new: ['Student ID Card', 'Concession Card', 'Youth Allowance'],
-          cruise: ['International Student Services', 'Work Permit'],
-          choice: ['Course Transfer', 'Study Abroad Programs'],
-          crisis: ['Academic Support', 'Financial Hardship Aid'],
-          recovery: ['Re-enrollment Services', 'Credit Recovery'],
-          closure: ['Graduation Services', 'Alumni Registration']
-        }
-      }
+      description: 'ID, visas, citizenship, enrolments'
     },
-    'Housing & Community': {
-      icon: Home,
-      color: 'bg-green-500',
-      items: {
-        citizen: {
-          new: ['Housing Application', 'Utility Connections', 'Local Services Guide'],
-          cruise: ['Property Services', 'Council Services', 'Community Programs'],
-          choice: ['Relocation Support', 'Housing Options'],
-          crisis: ['Emergency Housing', 'Homelessness Support'],
-          recovery: ['Housing Assistance', 'Rehabilitation Programs'],
-          closure: ['Lease Termination', 'Moving Services']
-        },
-        newArrival: {
-          new: ['Settlement Services', 'Temporary Accommodation', 'Orientation Programs'],
-          cruise: ['Community Integration', 'Language Classes', 'Cultural Programs'],
-          choice: ['Permanent Housing Options', 'Suburb Selection'],
-          crisis: ['Crisis Accommodation', 'Support Networks'],
-          recovery: ['Rebuilding Support', 'Community Connections'],
-          closure: ['Relocation Services', 'Departure Support']
-        },
-        student: {
-          new: ['Student Accommodation', 'Campus Housing', 'Share House Guide'],
-          cruise: ['Student Communities', 'Study Groups', 'Campus Life'],
-          choice: ['Housing Options', 'Location Changes'],
-          crisis: ['Emergency Accommodation', 'Student Welfare'],
-          recovery: ['Housing Support', 'Counseling Services'],
-          closure: ['End of Study Housing', 'Graduate Transition']
-        }
-      }
-    },
-    'Employment & Finance': {
+    'Income, Work & Enterprise': {
       icon: Briefcase,
       color: 'bg-purple-500',
-      items: {
-        citizen: {
-          new: ['Job Search Services', 'Centrelink Registration', 'Skills Assessment'],
-          cruise: ['Career Development', 'Training Programs', 'Tax Services'],
-          choice: ['Career Change Support', 'Retraining Options'],
-          crisis: ['Unemployment Benefits', 'Financial Counseling'],
-          recovery: ['Back to Work Programs', 'Skill Building'],
-          closure: ['Retirement Planning', 'Superannuation']
-        },
-        newArrival: {
-          new: ['Work Rights Information', 'Job Readiness Programs', 'Professional Recognition'],
-          cruise: ['Career Building', 'Professional Networks', 'Skill Development'],
-          choice: ['Career Pathways', 'Further Education'],
-          crisis: ['Employment Legal Aid', 'Workplace Support'],
-          recovery: ['Re-employment Services', 'Skill Recognition'],
-          closure: ['Final Pay Processing', 'Work History Certification']
-        },
-        student: {
-          new: ['Part-time Work Guide', 'Internship Programs', 'Student Finance'],
-          cruise: ['Work-Study Balance', 'Professional Development', 'Industry Connections'],
-          choice: ['Career Exploration', 'Major Selection'],
-          crisis: ['Financial Aid', 'Emergency Funds', 'Academic Support'],
-          recovery: ['Academic Recovery', 'Financial Planning'],
-          closure: ['Graduate Employment', 'Career Placement']
-        }
-      }
+      description: 'Jobs, payroll, BAS/GST, grants, procurement'
+    },
+    'Education & Skills': {
+      icon: GraduationCap,
+      color: 'bg-orange-500',
+      description: 'School, VET, higher ed, recognition of prior learning'
     },
     'Health & Wellbeing': {
       icon: Heart,
       color: 'bg-red-500',
-      items: {
-        citizen: {
-          new: ['Medicare Registration', 'GP Registration', 'Health Checks'],
-          cruise: ['Regular Healthcare', 'Preventive Services', 'Mental Health'],
-          choice: ['Health Options', 'Specialist Referrals'],
-          crisis: ['Emergency Services', 'Crisis Support', 'Mental Health Crisis'],
-          recovery: ['Rehabilitation', 'Recovery Programs', 'Ongoing Support'],
-          closure: ['End of Life Planning', 'Final Healthcare']
-        },
-        newArrival: {
-          new: ['Health System Orientation', 'Vaccination Records', 'Health Assessments'],
-          cruise: ['Community Health', 'Cultural Health Services', 'Family Health'],
-          choice: ['Healthcare Options', 'Provider Selection'],
-          crisis: ['Emergency Healthcare', 'Interpreter Services'],
-          recovery: ['Health Recovery', 'Support Services'],
-          closure: ['Health Records Transfer', 'Final Health Services']
-        },
-        student: {
-          new: ['Student Health Services', 'Campus Medical', 'Mental Health Support'],
-          cruise: ['Ongoing Health', 'Counseling Services', 'Wellness Programs'],
-          choice: ['Health Plan Selection', 'Provider Options'],
-          crisis: ['Crisis Counseling', 'Emergency Support'],
-          recovery: ['Health Recovery', 'Academic Support'],
-          closure: ['Health Transition', 'Graduate Health Services']
-        }
-      }
+      description: 'Medicare, mental health, disability supports'
+    },
+    'Family & Care': {
+      icon: Users,
+      color: 'bg-pink-500',
+      description: 'Parenting, carers, childcare, family payments'
+    },
+    'Housing & Utilities': {
+      icon: Home,
+      color: 'bg-green-500',
+      description: 'Rent/ownership, concessions, energy'
+    },
+    'Mobility & Transport': {
+      icon: Car,
+      color: 'bg-blue-600',
+      description: 'Licences, concessions, permits'
+    },
+    'Civic & Community': {
+      icon: Vote,
+      color: 'bg-indigo-500',
+      description: 'Voting, volunteering, local events'
+    },
+    'Safety, Justice & Consumer': {
+      icon: Shield,
+      color: 'bg-gray-600',
+      description: 'Police, legal aid, scams, tenancy rights'
+    },
+    'Environment, Hazards & Recovery': {
+      icon: AlertTriangle,
+      color: 'bg-yellow-600',
+      description: 'Alerts, disaster payments, rebuild'
+    },
+    'Taxes & Money': {
+      icon: DollarSign,
+      color: 'bg-emerald-600',
+      description: 'ATO, concessions, debt help'
+    },
+    'Licensing & Compliance': {
+      icon: FileCheck,
+      color: 'bg-teal-600',
+      description: 'ABLIS, professional licences'
+    },
+    'Digital Life & Security': {
+      icon: Monitor,
+      color: 'bg-cyan-600',
+      description: 'MyGov, MyID, cybersecurity, accessibility prefs'
+    },
+    'Research & Data Access': {
+      icon: Database,
+      color: 'bg-violet-600',
+      description: 'Ethics, grants, data portals'
+    },
+    'Aging, Retirement & Legacy': {
+      icon: Clock,
+      color: 'bg-amber-600',
+      description: 'Super, aged care, wills, estates'
     }
   };
 
   const getRelevantServices = () => {
-    const relevantServices: Array<{
-      category: string;
-      icon: any;
-      color: string;
-      items: string[];
-    }> = [];
+    // Map personas to their most relevant service domains
+    const personaServiceMapping: Record<Persona, string[]> = {
+      citizen: ['Identity & Status', 'Income, Work & Enterprise', 'Health & Wellbeing', 'Housing & Utilities', 'Civic & Community', 'Taxes & Money'],
+      newArrival: ['Identity & Status', 'Income, Work & Enterprise', 'Education & Skills', 'Health & Wellbeing', 'Housing & Utilities', 'Civic & Community'],
+      student: ['Identity & Status', 'Education & Skills', 'Health & Wellbeing', 'Income, Work & Enterprise', 'Housing & Utilities', 'Digital Life & Security'],
+      worker: ['Income, Work & Enterprise', 'Education & Skills', 'Health & Wellbeing', 'Taxes & Money', 'Digital Life & Security'],
+      careerChanger: ['Income, Work & Enterprise', 'Education & Skills', 'Licensing & Compliance', 'Taxes & Money', 'Digital Life & Security'],
+      parent: ['Family & Care', 'Health & Wellbeing', 'Education & Skills', 'Income, Work & Enterprise', 'Housing & Utilities'],
+      carer: ['Family & Care', 'Health & Wellbeing', 'Income, Work & Enterprise', 'Taxes & Money', 'Digital Life & Security'],
+      personWithDisability: ['Health & Wellbeing', 'Family & Care', 'Income, Work & Enterprise', 'Housing & Utilities', 'Mobility & Transport', 'Digital Life & Security'],
+      senior: ['Health & Wellbeing', 'Aging, Retirement & Legacy', 'Taxes & Money', 'Housing & Utilities', 'Mobility & Transport'],
+      smbOwner: ['Income, Work & Enterprise', 'Licensing & Compliance', 'Taxes & Money', 'Digital Life & Security', 'Research & Data Access'],
+      entrepreneur: ['Income, Work & Enterprise', 'Licensing & Compliance', 'Research & Data Access', 'Digital Life & Security', 'Taxes & Money'],
+      disasterAffected: ['Environment, Hazards & Recovery', 'Housing & Utilities', 'Health & Wellbeing', 'Income, Work & Enterprise', 'Safety, Justice & Consumer'],
+      custom: Object.keys(services) // All domains for custom personas
+    };
 
-    Object.entries(services).forEach(([category, service]) => {
-      const items = new Set<string>();
-      
-      personas.forEach(persona => {
-        const personaServices = service.items[persona]?.[stage] || [];
-        personaServices.forEach(item => items.add(item));
-      });
-
-      if (items.size > 0) {
-        relevantServices.push({
-          category,
-          icon: service.icon,
-          color: service.color,
-          items: Array.from(items)
-        });
-      }
+    const relevantDomains = new Set<string>();
+    personas.forEach(persona => {
+      personaServiceMapping[persona]?.forEach(domain => relevantDomains.add(domain));
     });
 
-    return relevantServices;
+    return Array.from(relevantDomains).map(domain => ({
+      category: domain,
+      icon: services[domain as keyof typeof services].icon,
+      color: services[domain as keyof typeof services].color,
+      description: services[domain as keyof typeof services].description
+    }));
   };
 
   const relevantServices = getRelevantServices();
@@ -196,10 +161,20 @@ export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
         <h2 className="text-2xl font-bold mb-2">Recommended Services</h2>
         <div className="flex flex-wrap gap-2 mb-4">
           {personas.map(persona => {
-            const personaLabels = {
+            const personaLabels: Record<Persona, string> = {
               citizen: 'Citizen/Resident',
               newArrival: 'New Arrival/New Citizen',
-              student: 'Student/Learner'
+              student: 'Student/Learner',
+              worker: 'Worker/Jobseeker',
+              careerChanger: 'Career-changer/Side-hustler',
+              parent: 'Parent/Guardian',
+              carer: 'Carer',
+              personWithDisability: 'Person with Disability/NDIS',
+              senior: 'Senior/Retiree',
+              smbOwner: 'SMB Owner/Sole Trader',
+              entrepreneur: 'Entrepreneur/Innovator',
+              disasterAffected: 'Disaster-affected Household',
+              custom: 'Custom'
             };
             return (
               <Badge key={persona} variant="outline">
@@ -227,24 +202,20 @@ export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
                   <div>
                     <CardTitle className="text-lg">{service.category}</CardTitle>
                     <CardDescription>
-                      {service.items.length} service{service.items.length !== 1 ? 's' : ''} available
+                      {service.description}
                     </CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {service.items.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors">
-                      <div className="flex items-center gap-3">
-                        <FileText className="w-4 h-4 text-muted-foreground" />
-                        <span className="font-medium">{item}</span>
-                      </div>
-                      <Button size="sm" variant="ghost">
-                        <ExternalLink className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  ))}
+                  <div className="text-sm text-muted-foreground">
+                    Services available based on your selected personas and current life stage.
+                  </div>
+                  <Button className="w-full" variant="outline">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    Explore {service.category} Services
+                  </Button>
                 </div>
               </CardContent>
             </Card>
