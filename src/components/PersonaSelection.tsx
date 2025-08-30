@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
+import {
+  Accessibility,
+  AlertTriangle,
+  ArrowRight,
+  Baby,
+  Briefcase,
+  Building2,
+  Crown,
+  GraduationCap,
+  Heart,
+  Lightbulb,
+  Plus,
+  TrendingUp,
+  UserPlus,
+  Users
+} from 'lucide-react';
 import Image from 'next/image';
+import React, { useState } from 'react';
+import type { Persona } from '../../app/page';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Checkbox } from './ui/checkbox';
-import { Users, UserPlus, GraduationCap, ArrowRight } from 'lucide-react';
-import type { Persona } from '../../app/page';
 
 interface PersonaSelectionProps {
   onConfirm: (personas: Persona[]) => void;
@@ -38,6 +53,86 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
       description: 'Study finance, concessions, internships, first job support',
       icon: GraduationCap,
       examples: ['Student finance', 'Study concessions', 'Internship programs', 'Job placement']
+    },
+    {
+      id: 'worker' as Persona,
+      title: 'Worker / Jobseeker',
+      subtitle: 'Employment Support',
+      description: 'Income shock, upskilling, placement support',
+      icon: Briefcase,
+      examples: ['Job search assistance', 'Upskilling programs', 'Income support', 'Career counseling']
+    },
+    {
+      id: 'careerChanger' as Persona,
+      title: 'Career-changer / Side-hustler',
+      subtitle: 'New Ventures',
+      description: 'Training, licensing, sole-trader setup',
+      icon: TrendingUp,
+      examples: ['Business registration', 'Professional licensing', 'Training courses', 'Tax setup']
+    },
+    {
+      id: 'parent' as Persona,
+      title: 'Parent / Guardian',
+      subtitle: 'Family Life',
+      description: 'Birth→childcare→school admin; family benefits',
+      icon: Baby,
+      examples: ['Birth registration', 'Childcare assistance', 'School enrolment', 'Family payments']
+    },
+    {
+      id: 'carer' as Persona,
+      title: 'Carer (elder/disabled)',
+      subtitle: 'Care Support',
+      description: 'Respite, allowances, service coordination',
+      icon: Heart,
+      examples: ['Carer allowances', 'Respite services', 'Support coordination', 'Equipment funding']
+    },
+    {
+      id: 'personWithDisability' as Persona,
+      title: 'Person with Disability / NDIS Participant',
+      subtitle: 'Accessibility & Support',
+      description: 'Access requests, plan management',
+      icon: Accessibility,
+      examples: ['NDIS applications', 'Plan management', 'Accessibility modifications', 'Support services']
+    },
+    {
+      id: 'senior' as Persona,
+      title: 'Senior / Retiree',
+      subtitle: 'Later Life',
+      description: 'Pensions, aged care, transport concessions',
+      icon: Crown,
+      examples: ['Age pension', 'Aged care services', 'Seniors discounts', 'Health services']
+    },
+    {
+      id: 'smbOwner' as Persona,
+      title: 'SMB Owner / Sole Trader',
+      subtitle: 'Business Operations',
+      description: 'ABN/GST, ABLIS licensing, payroll/STP cadence',
+      icon: Building2,
+      examples: ['ABN registration', 'GST compliance', 'Payroll systems', 'Business licensing']
+    },
+    {
+      id: 'entrepreneur' as Persona,
+      title: 'Entrepreneur / Innovator',
+      subtitle: 'Innovation & Growth',
+      description: 'Grants, IP, pilots, procurement readiness',
+      icon: Lightbulb,
+      examples: ['Grant applications', 'IP protection', 'Government tenders', 'Innovation programs']
+    },
+    {
+      id: 'disasterAffected' as Persona,
+      title: 'Disaster-affected Household',
+      subtitle: 'Recovery Support',
+      description: 'Alerts, grants, recovery centres, rebuild steps',
+      icon: AlertTriangle,
+      examples: ['Emergency alerts', 'Disaster payments', 'Recovery services', 'Rebuild assistance']
+    },
+    {
+      id: 'custom' as Persona,
+      title: 'Other / Custom',
+      subtitle: 'Your Unique Situation',
+      description: 'Register and identify yourself as needed',
+      icon: Plus,
+      examples: ['Custom persona setup', 'Personalized services', 'Unique circumstances', 'Flexible support']
     }
   ];
 
@@ -86,7 +181,7 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
         </div>
 
         {/* Persona Cards */}
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
           {personas.map((persona) => {
             const IconComponent = persona.icon;
             const isSelected = selectedPersonas.includes(persona.id);
@@ -98,7 +193,7 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
                 className={`cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-[1.02] touch-manipulation ${
                   isSelected ? 'ring-2 ring-primary border-primary shadow-lg bg-primary/5' : 'border-border hover:border-primary/30'
                 } ${
-                  isExpanded ? 'col-span-3 shadow-xl scale-[1.02] z-10' : 'hover:shadow-lg'
+                  isExpanded ? 'col-span-2 md:col-span-3 lg:col-span-4 shadow-xl scale-[1.02] z-10' : 'hover:shadow-lg'
                 }`}
                 onClick={() => handleCardClick(persona.id)}
               >
