@@ -22,7 +22,7 @@ export type Persona =
   | 'entrepreneur' 
   | 'disasterAffected' 
   | 'custom'
-export type Stage = 'new' | 'cruise' | 'choice' | 'crisis' | 'recovery' | 'closure'
+export type Stage = 'new' | 'cruise' | 'choice' | 'crisis' | 'recovery' | 'closure' | 'mitigate' | 'prevent'
 
 export default function Home() {
   const [selectedPersonas, setSelectedPersonas] = useState<Persona[]>([])

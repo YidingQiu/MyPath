@@ -7,7 +7,9 @@ import {
   GitBranch, 
   AlertTriangle, 
   TrendingUp, 
-  CheckCircle 
+  CheckCircle,
+  Shield,
+  ShieldCheck
 } from 'lucide-react';
 import type { Stage } from '../../app/page';
 
@@ -21,62 +23,83 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
     {
       id: 'new' as Stage,
       title: 'New',
-      description: 'Starting fresh, new beginnings',
+      description: 'Set things up and get connected fast',
       icon: Sparkles,
       color: 'bg-blue-500'
     },
     {
       id: 'cruise' as Stage,
       title: 'Cruise',
-      description: 'Stable, routine operations',
+      description: 'Keep life admin humming with light tune-ups',
       icon: Anchor,
       color: 'bg-green-500'
     },
     {
       id: 'choice' as Stage,
       title: 'Choice',
-      description: 'Decision points, options to consider',
+      description: 'Compare paths and pick the best fit',
       icon: GitBranch,
       color: 'bg-purple-500'
     },
     {
       id: 'crisis' as Stage,
       title: 'Crisis',
-      description: 'Challenges requiring immediate attention',
+      description: 'Stabilise quickly with the fewest critical steps',
       icon: AlertTriangle,
       color: 'bg-red-500'
     },
     {
       id: 'recovery' as Stage,
       title: 'Recovery',
-      description: 'Rebuilding and getting back on track',
+      description: 'Rebuild methodically and close follow-ups',
       icon: TrendingUp,
       color: 'bg-orange-500'
     },
     {
       id: 'closure' as Stage,
       title: 'Closure',
-      description: 'Completion, ending, or transition',
+      description: 'Wind down cleanly and hand things over',
       icon: CheckCircle,
       color: 'bg-gray-500'
     }
   ];
 
+  const riskManagementStages = [
+    {
+      id: 'mitigate' as Stage,
+      title: 'Mitigate',
+      description: 'Reduce the severity or impact of a risk in progress',
+      icon: Shield,
+      color: 'bg-amber-600'
+    },
+    {
+      id: 'prevent' as Stage,
+      title: 'Prevent',
+      description: 'Stop a risk from occurring or reduce its likelihood',
+      icon: ShieldCheck,
+      color: 'bg-emerald-700'
+    }
+  ];
+
+  const allStages = [...stages, ...riskManagementStages];
+
   return (
     <div className="mb-8">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-2">Your Life Stage Journey</h2>
+        <h2 className="text-2xl font-bold mb-2">Your Journey Stage</h2>
         <p className="text-muted-foreground">
           Select the stage that best represents your current situation to see relevant services
         </p>
       </div>
       
-      {/* Desktop Navigation */}
-      <div className="hidden md:flex items-center justify-between mb-6">
-        {stages.map((stage, index) => {
-          const IconComponent = stage.icon;
-          const isActive = currentStage === stage.id;
-          const isPast = stages.findIndex(s => s.id === currentStage) > index;
+      {/* Life Stages - Desktop Navigation */}
+      <div className="mb-8">
+        <h3 className="text-lg font-semibold mb-4">Life Stages</h3>
+        <div className="hidden md:flex items-center justify-between mb-4">
+          {stages.map((stage, index) => {
+            const IconComponent = stage.icon;
+            const isActive = currentStage === stage.id;
+            const isPast = stages.findIndex(s => s.id === currentStage) > index;
           
           return (
             <React.Fragment key={stage.id}>
@@ -95,7 +118,7 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
                   <div className={`font-medium ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
                     {stage.title}
                   </div>
-                  <div className="text-xs text-muted-foreground max-w-20">
+                  <div className="text-xs text-muted-foreground max-w-24">
                     {stage.description}
                   </div>
                 </div>
@@ -108,8 +131,8 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
         })}
       </div>
 
-      {/* Mobile Navigation */}
-      <div className="md:hidden grid grid-cols-3 gap-3 mb-6">
+      {/* Life Stages - Mobile Navigation */}
+      <div className="md:hidden grid grid-cols-3 gap-3 mb-4">
         {stages.map((stage) => {
           const IconComponent = stage.icon;
           const isActive = currentStage === stage.id;
@@ -119,13 +142,40 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
               key={stage.id}
               variant={isActive ? "default" : "outline"}
               onClick={() => onStageChange(stage.id)}
-              className="flex flex-col gap-2 h-auto p-4"
+              className="flex flex-col gap-2 h-auto p-3"
             >
-              <IconComponent className="w-5 h-5" />
+              <IconComponent className="w-4 h-4" />
               <span className="text-xs">{stage.title}</span>
             </Button>
           );
         })}
+      </div>
+      </div>
+
+      {/* Risk Management Stream */}
+      <div className="mb-8">
+        <h3 className="text-lg font-semibold mb-4">Risk Management</h3>
+        <div className="flex flex-wrap gap-3">
+          {riskManagementStages.map((stage) => {
+            const IconComponent = stage.icon;
+            const isActive = currentStage === stage.id;
+            
+            return (
+              <Button
+                key={stage.id}
+                variant={isActive ? "default" : "outline"}
+                onClick={() => onStageChange(stage.id)}
+                className="flex items-center gap-3 h-auto p-4 flex-1 min-w-0"
+              >
+                <IconComponent className="w-5 h-5 flex-shrink-0" />
+                <div className="text-left min-w-0">
+                  <div className="font-medium">{stage.title}</div>
+                  <div className="text-xs text-muted-foreground">{stage.description}</div>
+                </div>
+              </Button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Current Stage Info */}
@@ -135,11 +185,11 @@ export function StageNavigation({ currentStage, onStageChange }: StageNavigation
             Current Stage
           </Badge>
           <h3 className="font-semibold">
-            {stages.find(s => s.id === currentStage)?.title}
+            {allStages.find(s => s.id === currentStage)?.title}
           </h3>
         </div>
         <p className="text-muted-foreground mt-2">
-          {stages.find(s => s.id === currentStage)?.description}
+          {allStages.find(s => s.id === currentStage)?.description}
         </p>
       </div>
     </div>
