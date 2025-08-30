@@ -184,6 +184,7 @@ pids
 
 # dotenv environment variable files
 .env*
+.env
 
 # next.js build output
 .next
