@@ -1,0 +1,43 @@
+MyPath: Full life journey map
+- What is it
+	- Cross-collaboration across Australian departments to give personalised support to all members of the Australian community
+- Profiles
+	- School
+	- Uni
+		- Student
+		- Researcher
+		- Academic
+	- Worker
+		- Blue collar
+		- White collar
+		- All
+			- Tax
+	- Business owner
+		- Small to medium
+			- Tax
+		- Large enterprise
+	- Parent
+	- Income level group
+- Support
+	- Home Affairs: Prosperous, Secure, Unified
+	- I had a life issue, what can I do?
+	- I'm starting a new life stage, help
+	- I'm starting or growing a business, what can I do
+	- I'm exploring something new (service), give me advice (common problems, help with navigating)
+- Data?
+	- Scrape Australian government department structure
+	- Scrape services that currently exist
+		- Analyse gaps in services
+- Implementation plan?
+	- Demo job loss - what to do?
+	- Demo new citizen - what is new?
+	- Demo natural disaster - what support is available?
+	- Demo parent
+	- Demo small business convenience toolkit
+		- Business (MyBusiness)
+			- [Business.gov.au](https://business.gov.au)
+		- Tax
+		- Business (development) advice
+		- Product development
+		- Business intention satisfaction
+	- Also: government services intention satisfaction
