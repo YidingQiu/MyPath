@@ -191,10 +191,14 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
               <Card 
                 key={persona.id}
                 className={`cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-[1.02] touch-manipulation ${
-                  isSelected ? 'ring-2 ring-primary border-primary shadow-lg bg-primary/5' : 'border-border hover:border-primary/30'
+                  isSelected ? 'ring-2 shadow-lg bg-primary/5' : 'border-border hover:border-primary/30'
                 } ${
                   isExpanded ? 'col-span-2 md:col-span-3 lg:col-span-4 shadow-xl scale-[1.02] z-10' : 'hover:shadow-lg'
                 }`}
+                style={isSelected ? { 
+                  borderColor: '#33C4E8',
+                  boxShadow: '0 0 0 2px #33C4E8'
+                } : {}}
                 onClick={() => handleCardClick(persona.id)}
               >
                 {/* Compact state - minimal info */}
