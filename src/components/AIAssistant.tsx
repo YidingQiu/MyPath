@@ -10,7 +10,7 @@ import {
   User,
   X
 } from 'lucide-react'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
@@ -92,7 +92,7 @@ export function AIAssistant({ className = '' }: AIAssistantProps) {
     e.preventDefault()
   }
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging) return
     
     const newX = e.clientX - dragOffset.x
@@ -106,7 +106,7 @@ export function AIAssistant({ className = '' }: AIAssistantProps) {
       x: Math.max(0, Math.min(newX, maxX)),
       y: Math.max(0, Math.min(newY, maxY))
     })
-  }
+  }, [isDragging, dragOffset.x, dragOffset.y])
 
   const handleMouseUp = () => {
     setIsDragging(false)
@@ -143,7 +143,7 @@ export function AIAssistant({ className = '' }: AIAssistantProps) {
     e.preventDefault()
   }
 
-  const handleTouchMove = (e: TouchEvent) => {
+  const handleTouchMove = useCallback((e: TouchEvent) => {
     if (!isDragging) return
     
     const touch = e.touches[0]
@@ -158,7 +158,7 @@ export function AIAssistant({ className = '' }: AIAssistantProps) {
       y: Math.max(0, Math.min(newY, maxY))
     })
     e.preventDefault()
-  }
+  }, [isDragging, dragOffset.x, dragOffset.y])
 
   const handleTouchEnd = () => {
     setIsDragging(false)

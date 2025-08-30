@@ -319,7 +319,7 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
         <div className="mb-6">
           <Card className="bg-card/50 border-primary/20">
             <CardHeader className="pb-4">
-              <CardTitle className="text-lg">What's your current situation or question?</CardTitle>
+              <CardTitle className="text-lg">What&apos;s your current situation or question?</CardTitle>
               <CardDescription>
                 Tell us what you need help with so we can find the most relevant government services for you.
               </CardDescription>
