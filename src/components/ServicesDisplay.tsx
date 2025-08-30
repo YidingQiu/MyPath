@@ -262,7 +262,7 @@ export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground mb-4">
-            If you can't find what you're looking for or need assistance with any of these services, 
+            If you can&apos;t find what you&apos;re looking for or need assistance with any of these services, 
             our support team is here to help.
           </p>
           <div className="flex flex-wrap gap-3">

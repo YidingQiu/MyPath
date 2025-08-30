@@ -65,13 +65,12 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
         {/* Header */}
         <div className="text-center mb-8">
           <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
-              <div className="w-12 h-12 relative">
-                <div className="absolute inset-0 transform rotate-12">
-                  <div className="w-full h-2 bg-black rounded-full mb-2"></div>
-                  <div className="w-full h-2 bg-black rounded-full transform rotate-45 origin-left"></div>
-                </div>
-              </div>
+            <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg">
+              <img 
+                src="/MyPath.png" 
+                alt="MyPath Logo" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
           <h1 className="text-4xl font-bold text-primary mb-4">Welcome to MyPath</h1>
