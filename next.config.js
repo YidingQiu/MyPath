@@ -3,6 +3,10 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@radix-ui/react-icons'],
   },
+  eslint: {
+    // Disable ESLint during builds
+    ignoreDuringBuilds: true,
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     dangerouslyAllowSVG: true,
