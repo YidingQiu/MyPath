@@ -1,28 +1,8 @@
 # Better Questions for Brighter Futures
-[
 
-![GovHack Logo Banner](https://hackerspace.govhack.org/assets/bannerlogo-285c4b3d707b6bf1ae4bc76ec2a43e7c2e3c4016db399b26afaa5f6432c9697d.png)
-
-](https://hackerspace.govhack.org/)
-
-- [Events](https://hackerspace.govhack.org/events)
-- [Challenges](https://hackerspace.govhack.org/challenges)
-- [Projects](https://hackerspace.govhack.org/projects)
-- [Profiles](https://hackerspace.govhack.org/profiles)
-- [Resources](https://hackerspace.govhack.org/resources)
-
-[Sign In](https://hackerspace.govhack.org/users/sign_in)[Register](https://hackerspace.govhack.org/users/sign_up)
-
-![Better Questions for Brighter Futures banner image](https://hackerspace.govhack.org/rails/active_storage/blobs/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBcUlZIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--aae31955c0a1d047dbaed806d45e46d495bc281a/Reduced.jpg)
-
-
-## Jurisdiction: Australia
+**Jurisdiction:** Australia
 
 Solving problems before they become problems
-
-
-
-####
 
 How might we demonstrate that a powerful new Constructive Modelling Paradigm and Framework for multi-disciplinary discovery can help people solve problems more effectively?
 

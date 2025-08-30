@@ -28,9 +28,13 @@ export default function Home() {
   const [selectedPersonas, setSelectedPersonas] = useState<Persona[]>([])
   const [currentStage, setCurrentStage] = useState<Stage>('new')
   const [showPersonaSelection, setShowPersonaSelection] = useState(true)
+  const [userQuestion, setUserQuestion] = useState<string>('')
+  const [discoveredServices, setDiscoveredServices] = useState<any[]>([])
 
-  const handlePersonaConfirm = (personas: Persona[]) => {
+  const handlePersonaConfirm = (personas: Persona[], question: string, services?: any[]) => {
     setSelectedPersonas(personas)
+    setUserQuestion(question)
+    setDiscoveredServices(services || [])
     setShowPersonaSelection(false)
   }
 
@@ -88,6 +92,8 @@ export default function Home() {
         <ServicesDisplay 
           personas={selectedPersonas}
           stage={currentStage}
+          userQuestion={userQuestion}
+          discoveredServices={discoveredServices}
         />
       </div>
     </div>

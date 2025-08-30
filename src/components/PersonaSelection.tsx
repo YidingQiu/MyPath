@@ -22,12 +22,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Checkbox } from './ui/checkbox';
 
 interface PersonaSelectionProps {
-  onConfirm: (personas: Persona[]) => void;
+  onConfirm: (personas: Persona[], question: string, discoveredServices?: any[]) => void;
 }
 
 export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
   const [selectedPersonas, setSelectedPersonas] = useState<Persona[]>([]);
   const [expandedCard, setExpandedCard] = useState<Persona | null>(null);
+  const [userQuestion, setUserQuestion] = useState<string>('I lose my job');
+  const [isLoading, setIsLoading] = useState(false);
 
   const personas = [
     {
@@ -149,9 +151,55 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
     setExpandedCard(expandedCard === personaId ? null : personaId);
   };
 
-  const handleContinue = () => {
-    if (selectedPersonas.length > 0) {
-      onConfirm(selectedPersonas);
+  const handleContinue = async () => {
+    if (selectedPersonas.length === 0 || !userQuestion.trim()) return;
+    
+    setIsLoading(true);
+    console.log('🔍 Starting service discovery...');
+    console.log('📝 User Question:', userQuestion);
+    console.log('👤 Selected Personas:', selectedPersonas);
+    
+    try {
+      console.log('🌐 Initiating web search via SerpAPI...');
+      const response = await fetch('/api/discover-services', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          question: userQuestion,
+          persona: selectedPersonas[0] // Use first persona for simplicity
+        }),
+      });
+
+      console.log('📡 API Response Status:', response.status);
+      
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('📊 Raw API Response:', data);
+      
+      if (data.services && data.services.length > 0) {
+        console.log('✅ Found', data.services.length, 'relevant services:');
+        data.services.forEach((service: any, index: number) => {
+          console.log(`${index + 1}. ${service.title}`);
+          console.log(`   URL: ${service.url}`);
+          console.log(`   Services: ${service.serviceList}`);
+          console.log(`   Description: ${service.description}`);
+        });
+        onConfirm(selectedPersonas, userQuestion, data.services);
+      } else {
+        console.log('⚠️ No services found, falling back to default services');
+        onConfirm(selectedPersonas, userQuestion, []);
+      }
+    } catch (error) {
+      console.error('❌ Service discovery failed:', error);
+      console.log('🔄 Falling back to default services');
+      onConfirm(selectedPersonas, userQuestion, []);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -267,20 +315,55 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
           })}
         </div>
 
+        {/* Question Input */}
+        <div className="mb-6">
+          <Card className="bg-card/50 border-primary/20">
+            <CardHeader className="pb-4">
+              <CardTitle className="text-lg">What's your current situation or question?</CardTitle>
+              <CardDescription>
+                Tell us what you need help with so we can find the most relevant government services for you.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <input
+                type="text"
+                value={userQuestion}
+                onChange={(e) => setUserQuestion(e.target.value)}
+                className="w-full px-4 py-3 border border-input rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                placeholder="e.g., I lose my job, I need healthcare, I want to start a business"
+              />
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Continue Button */}
         <div className="text-center">
           <Button 
             onClick={handleContinue}
-            disabled={selectedPersonas.length === 0}
+            disabled={selectedPersonas.length === 0 || !userQuestion.trim() || isLoading}
             size="lg"
             className="px-8"
           >
-            Continue to Your Journey
-            <ArrowRight className="w-4 h-4 ml-2" />
+            {isLoading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                Finding Services...
+              </>
+            ) : (
+              <>
+                Continue to Your Journey
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </>
+            )}
           </Button>
           {selectedPersonas.length === 0 && (
             <p className="text-sm text-muted-foreground mt-2">
               Please select at least one persona to continue
+            </p>
+          )}
+          {selectedPersonas.length > 0 && !userQuestion.trim() && (
+            <p className="text-sm text-muted-foreground mt-2">
+              Please describe your situation to get personalized services
             </p>
           )}
         </div>

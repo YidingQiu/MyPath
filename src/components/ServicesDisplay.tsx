@@ -29,15 +29,25 @@ import type { Persona, Stage } from '../../app/page';
 interface ServicesDisplayProps {
   personas: Persona[];
   stage: Stage;
+  userQuestion: string;
+  discoveredServices?: DiscoveredService[];
 }
 
-export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
-  const router = useRouter();
+interface DiscoveredService {
+  url: string;
+  title: string;
+  serviceList: string;
+  description: string;
+}
 
-  const handleServiceClick = (category: string) => {
-    const url = serviceUrls[category];
+export function ServicesDisplay({ personas, stage, userQuestion, discoveredServices = [] }: ServicesDisplayProps) {
+  const router = useRouter();
+  const useDiscoveredServices = discoveredServices && discoveredServices.length > 0;
+
+  const handleServiceClick = (category: string, url?: string) => {
+    const targetUrl = url || serviceUrls[category];
     const encodedName = encodeURIComponent(category);
-    const encodedUrl = encodeURIComponent(url);
+    const encodedUrl = encodeURIComponent(targetUrl);
     router.push(`/service?name=${encodedName}&url=${encodedUrl}`);
   };
   // Australian Government Service URLs
@@ -180,7 +190,7 @@ export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
 
   const relevantServices = getRelevantServices();
 
-  if (relevantServices.length === 0) {
+  if (!useDiscoveredServices && relevantServices.length === 0) {
     return (
       <div className="text-center py-12">
         <Building className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
@@ -195,7 +205,9 @@ export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
   return (
     <div>
       <div className="mb-6">
-        <h2 className="text-2xl font-bold mb-2">Recommended Services</h2>
+        <h2 className="text-2xl font-bold mb-2">
+          {useDiscoveredServices ? 'Personalized Government Services' : 'Recommended Services'}
+        </h2>
         <div className="flex flex-wrap gap-2 mb-4">
           {personas.map(persona => {
             const personaLabels: Record<Persona, string> = {
@@ -221,25 +233,26 @@ export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
           })}
         </div>
         <p className="text-muted-foreground">
-          Based on your selected personas and current stage, here are the services most relevant to you.
+          {useDiscoveredServices 
+            ? `Based on your situation "${userQuestion}" and persona, here are relevant Australian government services.`
+            : 'Based on your selected personas and current stage, here are the services most relevant to you.'
+          }
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        {relevantServices.map((service) => {
-          const IconComponent = service.icon;
-          
-          return (
-            <Card key={service.category} className="h-fit">
+        {useDiscoveredServices ? (
+          discoveredServices.map((service, index) => (
+            <Card key={index} className="h-fit">
               <CardHeader>
                 <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 ${service.color} rounded-lg flex items-center justify-center`}>
-                    <IconComponent className="w-5 h-5 text-white" />
+                  <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+                    <ExternalLink className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">{service.category}</CardTitle>
+                    <CardTitle className="text-lg">{service.title}</CardTitle>
                     <CardDescription>
-                      {service.description}
+                      {service.serviceList}
                     </CardDescription>
                   </div>
                 </div>
@@ -247,21 +260,58 @@ export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
               <CardContent>
                 <div className="space-y-3">
                   <div className="text-sm text-muted-foreground">
-                    Services available based on your selected personas and current life stage.
+                    {service.description}
                   </div>
                   <Button 
                     className="w-full" 
                     variant="outline"
-                    onClick={() => handleServiceClick(service.category)}
+                    onClick={() => handleServiceClick(service.title, service.url)}
                   >
                     <ExternalLink className="w-4 h-4 mr-2" />
-                    Explore {service.category} Services
+                    Visit {service.title}
                   </Button>
                 </div>
               </CardContent>
             </Card>
-          );
-        })}
+          ))
+        ) : (
+          relevantServices.map((service) => {
+            const IconComponent = service.icon;
+            
+            return (
+              <Card key={service.category} className="h-fit">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className={`w-10 h-10 ${service.color} rounded-lg flex items-center justify-center`}>
+                      <IconComponent className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">{service.category}</CardTitle>
+                      <CardDescription>
+                        {service.description}
+                      </CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="text-sm text-muted-foreground">
+                      Services available based on your selected personas and current life stage.
+                    </div>
+                    <Button 
+                      className="w-full" 
+                      variant="outline"
+                      onClick={() => handleServiceClick(service.category)}
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Explore {service.category} Services
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })
+        )}
       </div>
 
       {/* Contact Information */}
