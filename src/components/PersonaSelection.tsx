@@ -11,6 +11,7 @@ interface PersonaSelectionProps {
 
 export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
   const [selectedPersonas, setSelectedPersonas] = useState<Persona[]>([]);
+  const [expandedCard, setExpandedCard] = useState<Persona | null>(null);
 
   const personas = [
     {
@@ -39,12 +40,17 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
     }
   ];
 
-  const handlePersonaToggle = (personaId: Persona) => {
+  const handlePersonaToggle = (personaId: Persona, event: React.MouseEvent) => {
+    event.stopPropagation();
     setSelectedPersonas(prev => 
       prev.includes(personaId)
         ? prev.filter(p => p !== personaId)
         : [...prev, personaId]
     );
+  };
+
+  const handleCardClick = (personaId: Persona) => {
+    setExpandedCard(expandedCard === personaId ? null : personaId);
   };
 
   const handleContinue = () => {
@@ -58,6 +64,16 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
       <div className="w-full max-w-4xl">
         {/* Header */}
         <div className="text-center mb-8">
+          <div className="flex justify-center mb-6">
+            <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 relative">
+                <div className="absolute inset-0 transform rotate-12">
+                  <div className="w-full h-2 bg-black rounded-full mb-2"></div>
+                  <div className="w-full h-2 bg-black rounded-full transform rotate-45 origin-left"></div>
+                </div>
+              </div>
+            </div>
+          </div>
           <h1 className="text-4xl font-bold text-primary mb-4">Welcome to MyPath</h1>
           <p className="text-xl text-muted-foreground mb-2">
             Your personalized government services journey
@@ -68,48 +84,84 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
         </div>
 
         {/* Persona Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-3 gap-3 mb-8">
           {personas.map((persona) => {
             const IconComponent = persona.icon;
             const isSelected = selectedPersonas.includes(persona.id);
+            const isExpanded = expandedCard === persona.id;
             
             return (
               <Card 
                 key={persona.id}
-                className={`cursor-pointer transition-all duration-200 hover:shadow-lg ${
-                  isSelected ? 'ring-2 ring-primary shadow-md' : ''
+                className={`cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-[1.02] touch-manipulation ${
+                  isSelected ? 'ring-2 ring-primary border-primary shadow-lg bg-primary/5' : 'border-border hover:border-primary/30'
+                } ${
+                  isExpanded ? 'col-span-3 shadow-xl scale-[1.02] z-10' : 'hover:shadow-lg'
                 }`}
-                onClick={() => handlePersonaToggle(persona.id)}
+                onClick={() => handleCardClick(persona.id)}
               >
-                <CardHeader className="pb-4">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <IconComponent className="w-8 h-8 text-primary" />
+                {/* Compact state - minimal info */}
+                {!isExpanded && (
+                  <CardHeader className="px-3 py-4 pb-2 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <IconComponent className="text-primary w-5 h-5" />
                       <Checkbox 
                         checked={isSelected}
-                        readOnly
-                        className="pointer-events-none"
+                        onClick={(e) => handlePersonaToggle(persona.id, e)}
+                        className="cursor-pointer h-4 w-4"
                       />
                     </div>
-                  </div>
-                  <CardTitle className="text-lg">{persona.title}</CardTitle>
-                  <CardDescription className="font-medium text-primary/70">
-                    {persona.subtitle}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {persona.description}
-                  </p>
-                  <div className="space-y-1">
-                    {persona.examples.map((example, index) => (
-                      <div key={index} className="text-xs text-muted-foreground flex items-center">
-                        <div className="w-1 h-1 bg-muted-foreground rounded-full mr-2" />
-                        {example}
+                    <div className="space-y-1">
+                      <CardTitle className="text-sm leading-tight">
+                        {persona.title}
+                      </CardTitle>
+                      <CardDescription className="text-xs font-medium text-primary/70">
+                        {persona.subtitle}
+                      </CardDescription>
+                    </div>
+                  </CardHeader>
+                )}
+                
+                {/* Expanded state - show full info */}
+                {isExpanded && (
+                  <>
+                    <CardHeader className="pb-4">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <IconComponent className="text-primary w-8 h-8" />
+                          <Checkbox 
+                            checked={isSelected}
+                            onClick={(e) => handlePersonaToggle(persona.id, e)}
+                            className="cursor-pointer"
+                          />
+                        </div>
                       </div>
-                    ))}
-                  </div>
-                </CardContent>
+                      <CardTitle className="text-lg">
+                        {persona.title}
+                      </CardTitle>
+                      <CardDescription className="text-sm font-medium text-primary/70">
+                        {persona.subtitle}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        {persona.description}
+                      </p>
+                      <div className="space-y-1">
+                        <h4 className="text-sm font-medium text-foreground mb-2">Examples:</h4>
+                        {persona.examples.map((example, index) => (
+                          <div key={index} className="text-xs text-muted-foreground flex items-center">
+                            <div className="w-1 h-1 bg-muted-foreground rounded-full mr-2" />
+                            {example}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-4 text-xs text-primary/50 font-medium">
+                        Tap to collapse
+                      </div>
+                    </CardContent>
+                  </>
+                )}
               </Card>
             );
           })}
