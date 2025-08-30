@@ -46,13 +46,12 @@ export default function Home() {
               Back to Personas
             </Button>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary-foreground/10 rounded-lg flex items-center justify-center">
-                <div className="w-5 h-5 relative">
-                  <div className="absolute inset-0 transform rotate-12">
-                    <div className="w-full h-1 bg-primary-foreground rounded-full mb-1"></div>
-                    <div className="w-full h-1 bg-primary-foreground rounded-full transform rotate-45 origin-left"></div>
-                  </div>
-                </div>
+              <div className="w-8 h-8 rounded-lg overflow-hidden">
+                <img 
+                  src="/MyPath.png" 
+                  alt="MyPath Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h1 className="text-2xl font-bold">MyPath</h1>
             </div>
