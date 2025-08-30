@@ -84,11 +84,11 @@ export default function PreparationPage() {
               Back to Support
             </Button>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg overflow-hidden">
+              <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0">
                 <LogoImage 
                   width={32}
                   height={32}
-                  className="w-full h-full object-cover"
+                  className="w-8 h-8 object-cover"
                   priority
                 />
               </div>

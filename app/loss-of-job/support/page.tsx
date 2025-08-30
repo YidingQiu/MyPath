@@ -48,21 +48,21 @@ export default function JobSeekerSupportPage() {
               className="text-primary-foreground hover:bg-primary/80"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Job Loss Support
+              Back
             </Button>
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg overflow-hidden">
+              <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0">
                 <LogoImage 
                   width={32}
                   height={32}
-                  className="w-full h-full object-cover"
+                  className="w-8 h-8 object-cover"
                   priority
                 />
               </div>
               <h1 className="text-2xl font-bold">Worker/Jobseeker Support</h1>
             </div>
           </div>
-          <div className="text-sm opacity-90">
+          <div className="text-sm opacity-90 hidden md:block">
             Personalized assistance and guidance
           </div>
         </div>
