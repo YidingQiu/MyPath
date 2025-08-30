@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 import { 
   CreditCard, 
   FileText, 
@@ -31,6 +32,42 @@ interface ServicesDisplayProps {
 }
 
 export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
+  const router = useRouter();
+
+  const handleServiceClick = (category: string) => {
+    const url = serviceUrls[category];
+    const encodedName = encodeURIComponent(category);
+    const encodedUrl = encodeURIComponent(url);
+    router.push(`/service?name=${encodedName}&url=${encodedUrl}`);
+  };
+  // Australian Government Service URLs
+  const serviceUrls: Record<string, string> = {
+    'Identity & Status': 'https://my.gov.au/en',
+    'Income, Work & Enterprise': 'https://www.servicesaustralia.gov.au/centrelink',
+    'Education & Skills': 'https://www.education.gov.au/',
+    'Health & Wellbeing': 'https://www.servicesaustralia.gov.au/medicare',
+    'Family & Care': 'https://www.servicesaustralia.gov.au/child-support',
+    'Housing & Utilities': 'https://www.dss.gov.au/housing-support',
+    'Mobility & Transport': 'https://www.infrastructure.gov.au/',
+    'Civic & Community': 'https://www.aec.gov.au/',
+    'Safety, Justice & Consumer': 'https://www.accc.gov.au/',
+    'Environment, Hazards & Recovery': 'https://www.emergency.gov.au/',
+    'Taxes & Money': 'https://www.ato.gov.au/',
+    'Licensing & Compliance': 'https://business.gov.au/licences-and-registrations',
+    'Digital Life & Security': 'https://my.gov.au/en',
+    'Research & Data Access': 'https://data.gov.au/',
+    'Aging, Retirement & Legacy': 'https://www.servicesaustralia.gov.au/age-pension'
+  };
+
+  // Websites that typically block iframe embedding
+  const blockedSites = [
+    'my.gov.au',
+    'servicesaustralia.gov.au', 
+    'ato.gov.au',
+    'aec.gov.au',
+    'accc.gov.au'
+  ];
+
   // Service data structure with expanded domains
   const services = {
     'Identity & Status': {
@@ -212,7 +249,11 @@ export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
                   <div className="text-sm text-muted-foreground">
                     Services available based on your selected personas and current life stage.
                   </div>
-                  <Button className="w-full" variant="outline">
+                  <Button 
+                    className="w-full" 
+                    variant="outline"
+                    onClick={() => handleServiceClick(service.category)}
+                  >
                     <ExternalLink className="w-4 h-4 mr-2" />
                     Explore {service.category} Services
                   </Button>
