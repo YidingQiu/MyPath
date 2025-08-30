@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import Image from 'next/image'
 import { PersonaSelection } from '../src/components/PersonaSelection'
 import { StageNavigation } from '../src/components/StageNavigation'
 import { ServicesDisplay } from '../src/components/ServicesDisplay'
@@ -47,9 +48,11 @@ export default function Home() {
             </Button>
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg overflow-hidden">
-                <img 
+                <Image 
                   src="/MyPath.png" 
                   alt="MyPath Logo" 
+                  width={32}
+                  height={32}
                   className="w-full h-full object-cover"
                 />
               </div>

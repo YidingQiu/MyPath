@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Checkbox } from './ui/checkbox';
 import { Users, UserPlus, GraduationCap, ArrowRight } from 'lucide-react';
-import type { Persona } from '../App';
+import type { Persona } from '../../app/page';
 
 interface PersonaSelectionProps {
   onConfirm: (personas: Persona[]) => void;
@@ -66,9 +67,11 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-6">
             <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg">
-              <img 
+              <Image 
                 src="/MyPath.png" 
                 alt="MyPath Logo" 
+                width={80}
+                height={80}
                 className="w-full h-full object-cover"
               />
             </div>

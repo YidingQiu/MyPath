@@ -9,7 +9,7 @@ import {
   TrendingUp, 
   CheckCircle 
 } from 'lucide-react';
-import type { Stage } from '../App';
+import type { Stage } from '../../app/page';
 
 interface StageNavigationProps {
   currentStage: Stage;

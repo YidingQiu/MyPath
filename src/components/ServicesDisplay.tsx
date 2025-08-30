@@ -15,7 +15,7 @@ import {
   Phone,
   ExternalLink
 } from 'lucide-react';
-import type { Persona, Stage } from '../App';
+import type { Persona, Stage } from '../../app/page';
 
 interface ServicesDisplayProps {
   personas: Persona[];
