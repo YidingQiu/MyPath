@@ -14,9 +14,9 @@ import {
   UserPlus,
   Users
 } from 'lucide-react';
-import Image from 'next/image';
 import React, { useState } from 'react';
 import type { Persona } from '../../app/page';
+import { LogoImage } from './LogoImage';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Checkbox } from './ui/checkbox';
@@ -162,12 +162,11 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
         <div className="text-center mb-8">
           <div className="flex justify-center mb-6">
             <div className="w-20 h-20 rounded-2xl overflow-hidden shadow-lg">
-              <Image 
-                src="/MyPath.png" 
-                alt="MyPath Logo" 
+              <LogoImage 
                 width={80}
                 height={80}
                 className="w-full h-full object-cover"
+                priority
               />
             </div>
           </div>
