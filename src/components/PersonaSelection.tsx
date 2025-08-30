@@ -207,7 +207,7 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
                       <IconComponent className="text-primary w-5 h-5" />
                       <Checkbox 
                         checked={isSelected}
-                        onClick={(e) => handlePersonaToggle(persona.id, e)}
+                        on={(e) => handlePersonaToggle(persona.id, e)}
                         className="cursor-pointer h-4 w-4"
                       />
                     </div>

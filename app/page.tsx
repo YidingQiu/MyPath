@@ -4,9 +4,12 @@ import React, { useState } from 'react'
 import { PersonaSelection } from '../src/components/PersonaSelection'
 import { StageNavigation } from '../src/components/StageNavigation'
 import { ServicesDisplay } from '../src/components/ServicesDisplay'
+import { DynamicServicesDisplay } from '../src/components/DynamicServicesDisplay'
+import { VectorDBDebug } from '../src/components/VectorDBDebug'
 import { LogoImage } from '../src/components/LogoImage'
 import { Button } from '../src/components/ui/button'
-import { ArrowLeft } from 'lucide-react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../src/components/ui/tabs'
+import { ArrowLeft, Database, Layers, BarChart3 } from 'lucide-react'
 
 export type Persona = 
   | 'citizen' 
@@ -84,11 +87,41 @@ export default function Home() {
           onStageChange={setCurrentStage}
         />
 
-        {/* Services Display */}
-        <ServicesDisplay 
-          personas={selectedPersonas}
-          stage={currentStage}
-        />
+        {/* Tabbed Interface for Different Service Views */}
+        <Tabs defaultValue="discover" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="discover" className="flex items-center gap-2">
+              <Database className="w-4 h-4" />
+              AI Discovery
+            </TabsTrigger>
+            <TabsTrigger value="categories" className="flex items-center gap-2">
+              <Layers className="w-4 h-4" />
+              Service Categories
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="flex items-center gap-2">
+              <BarChart3 className="w-4 h-4" />
+              System Analytics
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="discover" className="mt-6">
+            <DynamicServicesDisplay 
+              personas={selectedPersonas}
+              stage={currentStage}
+            />
+          </TabsContent>
+          
+          <TabsContent value="categories" className="mt-6">
+            <ServicesDisplay 
+              personas={selectedPersonas}
+              stage={currentStage}
+            />
+          </TabsContent>
+          
+          <TabsContent value="analytics" className="mt-6">
+            <VectorDBDebug />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   )
