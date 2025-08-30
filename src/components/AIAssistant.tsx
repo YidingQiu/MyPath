@@ -1,21 +1,20 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import {
+  Bot,
+  Maximize2,
+  Mic,
+  MicOff,
+  Minimize2,
+  Send,
+  User,
+  X
+} from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Input } from './ui/input'
-import { Badge } from './ui/badge'
-import { 
-  MessageCircle, 
-  X, 
-  Send, 
-  Mic, 
-  MicOff, 
-  Bot,
-  User,
-  Minimize2,
-  Maximize2
-} from 'lucide-react'
 
 interface Message {
   id: string
@@ -97,7 +96,7 @@ export function AIAssistant({ className = '' }: AIAssistantProps) {
     if (!isDragging) return
     
     const newX = e.clientX - dragOffset.x
-    const newY = e.clientY - dragOffset.y
+    const newY = window.innerHeight - (e.clientY - dragOffset.y) - 56 // 56px is button height
     
     // Keep within viewport bounds
     const maxX = window.innerWidth - 56 // 56px is button width
@@ -149,7 +148,7 @@ export function AIAssistant({ className = '' }: AIAssistantProps) {
     
     const touch = e.touches[0]
     const newX = touch.clientX - dragOffset.x
-    const newY = touch.clientY - dragOffset.y
+    const newY = window.innerHeight - (touch.clientY - dragOffset.y) - 56 // 56px is button height
     
     const maxX = window.innerWidth - 56
     const maxY = window.innerHeight - 56
@@ -264,7 +263,7 @@ export function AIAssistant({ className = '' }: AIAssistantProps) {
           <Bot className="h-6 w-6" />
         </Button>
         <Badge 
-          className="absolute -top-2 -left-2 bg-red-500 text-white animate-pulse pointer-events-none"
+          className="absolute -top-2 -left-2 bg-red-500 text-white pointer-events-none" //animate-pulse
           variant="secondary"
         >
           AI
