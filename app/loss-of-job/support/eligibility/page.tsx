@@ -1,26 +1,22 @@
 'use client'
 
-import React, { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../../src/components/ui/card'
+import {
+    ArrowLeft,
+    CheckCircle,
+    Clock,
+    CreditCard,
+    FileText,
+    MapPin,
+    Shield,
+    User
+} from 'lucide-react'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { LogoImage } from '../../../../src/components/LogoImage'
 import { Badge } from '../../../../src/components/ui/badge'
 import { Button } from '../../../../src/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { 
-  CheckCircle, 
-  DollarSign,
-  ArrowLeft,
-  MapPin,
-  Clock,
-  AlertCircle,
-  FileText,
-  Phone,
-  Calendar,
-  CreditCard,
-  User,
-  Home,
-  Shield
-} from 'lucide-react'
-import { LogoImage } from '../../../../src/components/LogoImage'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../../src/components/ui/card'
 
 export default function EligibilityPage() {
   const router = useRouter()
@@ -128,9 +124,11 @@ export default function EligibilityPage() {
                     <div className="bg-white rounded-lg p-6 max-w-sm mx-4 shadow-xl">
                       <div className="flex items-center gap-3 mb-4">
                         <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center relative">
-                          <img 
+                          <Image 
                             src="/MyPath.png" 
                             alt="MyPath AI" 
+                            width={32}
+                            height={32}
                             className="w-8 h-8 rounded-full"
                           />
                           {/* Smiley eyes overlay */}
@@ -147,7 +145,7 @@ export default function EligibilityPage() {
                         </div>
                       </div>
                       <p className="text-sm mb-4">
-                        "Let me do it for you! I can securely auto-fill your information using your verified identity."
+                        &quot;Let me do it for you! I can securely auto-fill your information using your verified identity.&quot;
                       </p>
                       <div className="flex gap-2">
                         <Button onClick={handleAIAssist} className="flex-1">

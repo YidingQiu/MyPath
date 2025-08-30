@@ -1,27 +1,24 @@
 'use client'
 
-import React from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../src/components/ui/card'
-import { Badge } from '../../../src/components/ui/badge'
-import { Button } from '../../../src/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { 
-  CheckCircle, 
-  MessageSquare,
+import {
+  AlertCircle,
   ArrowLeft,
+  CheckCircle,
   DollarSign,
   FileText,
-  Phone,
-  Users,
-  MapPin,
-  Clock,
-  AlertCircle,
-  TrendingUp,
+  GraduationCap,
   Heart,
-  Briefcase,
-  GraduationCap
+  MapPin,
+  MessageSquare,
+  Phone,
+  TrendingUp,
+  Users
 } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { LogoImage } from '../../../src/components/LogoImage'
+import { Badge } from '../../../src/components/ui/badge'
+import { Button } from '../../../src/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../src/components/ui/card'
 
 export default function JobSeekerSupportPage() {
   const router = useRouter()
@@ -84,7 +81,7 @@ export default function JobSeekerSupportPage() {
             </Badge>
           </div>
           <p className="text-muted-foreground">
-            Based on your situation, we've identified priority support services and guidance tailored to your needs.
+            Based on your situation, we&apos;ve identified priority support services and guidance tailored to your needs.
           </p>
         </div>
 

@@ -1,25 +1,25 @@
 'use client'
 
-import React, { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../../src/components/ui/card'
+import {
+    AlertCircle,
+    ArrowLeft,
+    ArrowRight,
+    Bell,
+    Briefcase,
+    CheckCircle,
+    Clock,
+    DollarSign,
+    MapPin,
+    Target,
+    TrendingUp,
+    Users
+} from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { LogoImage } from '../../../../src/components/LogoImage'
 import { Badge } from '../../../../src/components/ui/badge'
 import { Button } from '../../../../src/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { 
-  TrendingUp, 
-  MapPin,
-  ArrowLeft,
-  Briefcase,
-  DollarSign,
-  Clock,
-  Users,
-  CheckCircle,
-  AlertCircle,
-  Bell,
-  Target,
-  ArrowRight
-} from 'lucide-react'
-import { LogoImage } from '../../../../src/components/LogoImage'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../../../src/components/ui/card'
 
 export default function JobAdvicePage() {
   const router = useRouter()
@@ -310,7 +310,7 @@ export default function JobAdvicePage() {
                 Ready to Apply?
               </CardTitle>
               <CardDescription>
-                You've selected {selectedJobs.length} job{selectedJobs.length !== 1 ? 's' : ''} to pursue
+                You&apos;ve selected {selectedJobs.length} job{selectedJobs.length !== 1 ? 's' : ''} to pursue
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -333,7 +333,7 @@ export default function JobAdvicePage() {
                       <p className="text-sm font-medium text-amber-800">What happens next:</p>
                       <ul className="text-sm text-amber-700 mt-1 space-y-1">
                         <li>• Job application tasks will be created in your Worker/Jobseeker dashboard</li>
-                        <li>• You'll receive notifications about application deadlines</li>
+                        <li>• You&apos;ll receive notifications about application deadlines</li>
                         <li>• Resume templates will be customized for each role</li>
                         <li>• Interview preparation materials will be provided</li>
                       </ul>
