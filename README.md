@@ -1,5 +1,7 @@
 # MyPath
 
+Link to our video: https://www.youtube.com/watch?v=Y_GPkG9xjT0
+
 ## We are solving:
 
 
