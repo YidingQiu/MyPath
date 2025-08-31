@@ -23,9 +23,11 @@ import { Checkbox } from './ui/checkbox';
 
 interface PersonaSelectionProps {
   onConfirm: (personas: Persona[]) => void;
+  highlightPersona?: Persona;
+  demoMode?: 'loss-of-job' | 'sme-support';
 }
 
-export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
+export function PersonaSelection({ onConfirm, highlightPersona, demoMode }: PersonaSelectionProps) {
   const [selectedPersonas, setSelectedPersonas] = useState<Persona[]>([]);
   const [expandedCard, setExpandedCard] = useState<Persona | null>(null);
 
@@ -151,6 +153,17 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
 
   const handleContinue = () => {
     if (selectedPersonas.length > 0) {
+      // Handle demo mode direct routing
+      if (demoMode === 'loss-of-job') {
+        window.location.href = '/loss-of-job/support';
+        return;
+      }
+      if (demoMode === 'sme-support') {
+        window.location.href = '/sme-support/compliance';
+        return;
+      }
+      
+      // Default behavior for main app
       onConfirm(selectedPersonas);
     }
   };
@@ -185,6 +198,7 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
             const IconComponent = persona.icon;
             const isSelected = selectedPersonas.includes(persona.id);
             const isExpanded = expandedCard === persona.id;
+            const isHighlighted = highlightPersona === persona.id;
             
             return (
               <Card 
@@ -193,6 +207,8 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
                   isSelected ? 'ring-2 shadow-lg bg-primary/5' : 'border-border hover:border-primary/30'
                 } ${
                   isExpanded ? 'col-span-2 md:col-span-3 lg:col-span-4 shadow-xl scale-[1.02] z-10' : 'hover:shadow-lg'
+                } ${
+                  isHighlighted ? 'border-amber-300 bg-amber-50/30 ring-2 ring-amber-200' : ''
                 }`}
                 style={isSelected ? { 
                   borderColor: '#33C4E8',
@@ -207,7 +223,7 @@ export function PersonaSelection({ onConfirm }: PersonaSelectionProps) {
                       <IconComponent className="text-primary w-5 h-5" />
                       <Checkbox 
                         checked={isSelected}
-                        on={(e) => handlePersonaToggle(persona.id, e)}
+                        onClick={(e) => handlePersonaToggle(persona.id, e)}
                         className="cursor-pointer h-4 w-4"
                       />
                     </div>
