@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { Dataset, SERVICE_DOMAINS, AUSTRALIAN_LOCATIONS } from './dataset-fetcher';
+import { Dataset, SERVICE_DOMAINS } from './dataset-fetcher';
 
 export interface CachedDataset {
   id: string;
@@ -250,7 +250,7 @@ class DatasetVectorStore {
     // Apply temporal filter
     if (dateFrom || dateTo) {
       candidateDatasets = candidateDatasets.filter(cached => {
-        const from = cached.metadata.temporalRange.from;
+        const from = cached.metadata.temporalRange?.from;
         if (!from) return true;
         
         const datasetDate = new Date(from);

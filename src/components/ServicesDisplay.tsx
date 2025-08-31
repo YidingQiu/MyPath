@@ -29,12 +29,24 @@ import type { Persona, Stage } from '../../app/page';
 interface ServicesDisplayProps {
   personas: Persona[];
   stage: Stage;
+  demoMode?: 'loss-of-job' | 'sme-support';
 }
 
-export function ServicesDisplay({ personas, stage }: ServicesDisplayProps) {
+export function ServicesDisplay({ personas, stage, demoMode }: ServicesDisplayProps) {
   const router = useRouter();
 
   const handleServiceClick = (category: string) => {
+    // Handle demo routing
+    if (demoMode === 'loss-of-job' && category === 'Income, Work & Enterprise') {
+      router.push('/loss-of-job/support');
+      return;
+    }
+    if (demoMode === 'sme-support' && category === 'Income, Work & Enterprise') {
+      router.push('/sme-support/compliance');
+      return;
+    }
+    
+    // Default routing
     const url = serviceUrls[category];
     const encodedName = encodeURIComponent(category);
     const encodedUrl = encodeURIComponent(url);
