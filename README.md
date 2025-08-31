@@ -20,6 +20,9 @@ For this challenge, see "Datasets used.zip" for the (modified) datasets from dat
 
 ## MyPath team member
 Bill Qiu
+
 Junyi Men
+
 Ivan Hu
+
 Julian Knowles
