@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import logoSrc from '../assets/MyPath.png'
 
 interface LogoImageProps {
   width: number
@@ -27,7 +28,7 @@ export function LogoImage({ width, height, className, priority = false }: LogoIm
 
   return (
     <Image 
-      src="/MyPath.png" 
+      src={logoSrc} 
       alt="MyPath Logo" 
       width={width}
       height={height}
@@ -37,8 +38,6 @@ export function LogoImage({ width, height, className, priority = false }: LogoIm
         console.error('Failed to load MyPath.png logo, using fallback');
         setImageError(true);
       }}
-      // Add unoptimized as fallback for deployment issues
-      unoptimized={process.env.NODE_ENV === 'production'}
     />
   )
 }
