@@ -24,7 +24,7 @@ import { Checkbox } from './ui/checkbox';
 interface PersonaSelectionProps {
   onConfirm: (personas: Persona[]) => void;
   highlightPersona?: Persona;
-  demoMode?: 'loss-of-job' | 'sme-support';
+  demoMode?: 'loss-of-job' | 'sme-support' | 'bushfire-disaster';
 }
 
 export function PersonaSelection({ onConfirm, highlightPersona, demoMode }: PersonaSelectionProps) {
@@ -160,6 +160,10 @@ export function PersonaSelection({ onConfirm, highlightPersona, demoMode }: Pers
       }
       if (demoMode === 'sme-support') {
         window.location.href = '/sme-support/compliance';
+        return;
+      }
+      if (demoMode === 'bushfire-disaster') {
+        window.location.href = '/bushfire-disaster/dashboard';
         return;
       }
       

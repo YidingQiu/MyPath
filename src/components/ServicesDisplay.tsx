@@ -29,7 +29,7 @@ import type { Persona, Stage } from '../../app/page';
 interface ServicesDisplayProps {
   personas: Persona[];
   stage: Stage;
-  demoMode?: 'loss-of-job' | 'sme-support';
+  demoMode?: 'loss-of-job' | 'sme-support' | 'bushfire-disaster';
 }
 
 export function ServicesDisplay({ personas, stage, demoMode }: ServicesDisplayProps) {
@@ -43,6 +43,10 @@ export function ServicesDisplay({ personas, stage, demoMode }: ServicesDisplayPr
     }
     if (demoMode === 'sme-support' && category === 'Income, Work & Enterprise') {
       router.push('/sme-support/compliance');
+      return;
+    }
+    if (demoMode === 'bushfire-disaster' && category === 'Environment, Hazards & Recovery') {
+      router.push('/bushfire-disaster/dashboard');
       return;
     }
     
