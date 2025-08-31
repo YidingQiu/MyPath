@@ -15,6 +15,7 @@ We selected this challenge to turn ceremony into real belonging and practical pa
 We entered to help SMEs cut through overlapping Commonwealth–State–Local rules. MyPath constructs an obligation map (dependencies, duplicates, conflicts) from open sources, then renders a human-friendly plan: bundled prerequisites, optimal order, renewals calendar and deep links to lodge. The UI shows a clear graph for transparency, supports de-confliction with citations, and lets owners Accept Compliance Plan to create trackable tasks with definitions of done. Our relevancy pipeline ensures we use the freshest, most authoritative data, making compliance faster, clearer and less error-prone for small businesses.
 
 (Note for Data-Driven Reduction in Gambling Harm)
+
 For this challenge, see "Datasets used.zip" for the (modified) datasets from data.vic.gov.au, see 'Analysis.zip' for the plots and the script used to generate them, and see 'Analysis of gambling data.pdf' for an analysis of the data that identifies risk factors and communities, proposes some interventions for youth protection and some community-level solutions that reduce likelihood of harm from gambling and strengthen social connection. 
 
 ## MyPath team member
