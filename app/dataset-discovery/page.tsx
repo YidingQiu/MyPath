@@ -25,8 +25,11 @@ import {
   Clock,
   Filter,
   Globe,
-  Zap
+  Zap,
+  Sparkles
 } from 'lucide-react';
+import { DatasetExamples } from '../../src/components/DatasetExamples';
+import { applyExample, type DatasetExample } from '../lib/dataset-examples';
 
 interface DatasetResult {
   id: string;
@@ -103,6 +106,9 @@ export default function DatasetDiscoveryPage() {
   // Population state
   const [isPopulating, setIsPopulating] = useState(false);
   const [populationProgress, setPopulationProgress] = useState<string>('');
+  
+  // Examples state
+  const [showExamples, setShowExamples] = useState(true);
 
   const performSearch = async () => {
     if (!searchQuery.trim()) return;
@@ -185,6 +191,27 @@ export default function DatasetDiscoveryPage() {
     performSearch();
   };
 
+  const handleApplyExample = (example: DatasetExample) => {
+    console.log('🎯 Applying example:', example.title);
+    
+    // Apply all example settings
+    applyExample(example, {
+      setSearchQuery,
+      setSelectedDomains,
+      setSelectedLocation,
+      setSelectedOrganization,
+      setSelectedTags
+    });
+    
+    // Hide examples and trigger search
+    setShowExamples(false);
+    
+    // Trigger search after a brief delay to ensure state updates
+    setTimeout(() => {
+      performSearch();
+    }, 100);
+  };
+
   const toggleDomain = (domain: string) => {
     setSelectedDomains(prev => 
       prev.includes(domain) 
@@ -247,12 +274,34 @@ export default function DatasetDiscoveryPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <form onSubmit={handleSearch} className="flex gap-2">
-                    <Input
-                      placeholder="e.g. housing assistance, employment data, health statistics..."
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="flex-1"
-                    />
+                    <div className="flex-1 relative">
+                      <Input
+                        placeholder="e.g. housing assistance, employment data, health statistics..."
+                        value={searchQuery}
+                        onChange={(e) => {
+                          setSearchQuery(e.target.value);
+                          // Show examples when query is cleared
+                          if (!e.target.value.trim() && !showExamples) {
+                            setShowExamples(true);
+                          }
+                        }}
+                        className="w-full"
+                      />
+                      {!searchQuery && !showExamples && (
+                        <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setShowExamples(true)}
+                            className="text-xs text-muted-foreground hover:text-primary"
+                          >
+                            <Sparkles className="w-3 h-3 mr-1" />
+                            Examples
+                          </Button>
+                        </div>
+                      )}
+                    </div>
                     <Button type="submit" disabled={loading || !searchQuery.trim()}>
                       {loading ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
@@ -262,6 +311,14 @@ export default function DatasetDiscoveryPage() {
                       Search
                     </Button>
                   </form>
+
+                  {/* Preset Examples */}
+                  <DatasetExamples
+                    onApplyExample={handleApplyExample}
+                    currentQuery={searchQuery}
+                    isVisible={showExamples}
+                    onToggleVisibility={() => setShowExamples(!showExamples)}
+                  />
 
                   {/* Filters */}
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
